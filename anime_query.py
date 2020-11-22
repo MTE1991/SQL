@@ -4,7 +4,7 @@ import webbrowser
 # Connect to database:
 conn = sqlite3.connect("AnimeInfo.db") # Infos from myanimelist
 
-print("---: Anime infos ver 1.01 :--- \n")
+print("---: Anime infos ver 1.02 :--- \n")
 
 # Query functions:
 def anime_info(anime):
