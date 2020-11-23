@@ -1,10 +1,13 @@
 import sqlite3
 import webbrowser
 
-# Connect to database:
-conn = sqlite3.connect("AnimeInfo.db") # Infos from myanimelist
+print("---: Anime infos ver 1.01 :--- \n")
 
-print("---: Anime infos ver 1.02 :--- \n")
+# Connect to database:
+try:
+	conn = sqlite3.connect("AnimeInfo.db") # Infos from myanimelist
+except:
+		raise Exception("Sorry, connection to database failed.")
 
 # Query functions:
 def anime_info(anime):
@@ -42,32 +45,28 @@ def open_mal(uid):
 	webbrowser.open(f"https://myanimelist.net/anime/{uid}")
 
 while True:
-	try:
-		print("""Choose one of the following:
-			1. Search for info about an anime series/movie
-			2. Search for top animes of a genre
-			3. Get info directly from MyAnimeList website (uid needed)
-
+	print("""Choose one of the following:
+		1. Search for info about an anime series/movie
+		2. Search for top animes of a genre
+		3. Get info directly from MyAnimeList website (uid needed)
 			""")
-		prompt_1 = int(input("Your choice ? : "))
+	prompt_1 = int(input("Your choice ? : "))
 
-		if prompt_1 == 1:
-			query_1 = str(input("Enter anime name: "))
-			anime_info(query_1)
-		elif prompt_1 == 2:
-			query_2 = str(input("Enter a genre name: "))
-			top_animes(query_2)
-		else:
-			query_3 = int(input("Enter uid: "))
-			open_mal(query_3)
+	if prompt_1 == 1:
+		query_1 = str(input("Enter anime name: "))
+		anime_info(query_1)
+	elif prompt_1 == 2:
+		query_2 = str(input("Enter a genre name: "))
+		top_animes(query_2)
+	else:
+		query_3 = int(input("Enter uid: "))
+		open_mal(query_3)
 
-		prompt_2 = str(input("Do you want to search again? (Y/N) : "))
+	prompt_2 = str(input("Do you want to search again? (Y/N) : "))
 
-		if prompt_2 == "Y" or prompt_2 == "y":
-			continue
-		else:
-			print("Thank you for using the program.")
-			conn.close()
-			break
-	except:
-		raise Exception("Sorry, connection to database failed.")
+	if prompt_2 == "Y" or prompt_2 == "y":
+		continue
+	else:
+		print("Thank you for using the program.")
+		conn.close()
+		break
