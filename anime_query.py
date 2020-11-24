@@ -1,19 +1,16 @@
 import sqlite3
 import webbrowser
 
-print("---: Anime infos ver 1.01 :--- \n")
+print("---: Anime infos ver 1.012 :--- \n")
 
 # Connect to database:
-try:
-	conn = sqlite3.connect("AnimeInfo.db") # Infos from myanimelist
-except:
-		raise Exception("Sorry, connection to database failed.")
+conn = sqlite3.connect("AnimeInfo.db") # Infos from myanimelist
 
 # Query functions:
 def anime_info(anime):
-	"""Show info about a specific anime series/movie"""		
+	"""Show info about a specific anime series/movie"""	
 	cursor = conn.execute("""
-		SELECT uid, title, episodes, genre, synopsis FROM Animes_main
+		SELECT uid, title, episodes, genre, score, synopsis FROM Animes_main
 		WHERE title LIKE '%{anime}%' """.format(anime=anime))
 
 	for row in cursor:
@@ -22,7 +19,8 @@ def anime_info(anime):
 		print("Anime name: ", row[1])
 		print("Episodes: ", row[2])
 		print("Genre: ", row[3])
-		print("Synopsis: \n", row[4])
+		print("Score: ", row[4])
+		print("Synopsis: \n", row[5])
 		print("-" * 50)
 
 def top_animes(genre):
