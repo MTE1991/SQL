@@ -58,17 +58,16 @@ def manga_info(manga):
 def top_mangas(genres):
 	"""Show the top 10 anime series/movies of a specific genre"""
 	cursor = conn.execute("""
-		SELECT score, name, genres, quantity, popularity FROM Manga_main
+		SELECT popularity, name, genres, quantity FROM Manga_main
 		WHERE genres LIKE '%{genres}%'
-		ORDER BY score DESC LIMIT 10 """.format(genres=genres))
+		ORDER BY popularity ASC LIMIT 10 """.format(genres=genres))
 
 	for row in cursor:
 		print("-" * 50)
-		print("Score: ", row[0])
+		print("Popularity: ", row[0])
 		print("Name: ", row[1])
 		print("Genre: ", row[2])
 		print("Quantity: ", row[3])
-		print("Popularity: ", row[4])
 		print("-" * 50)
 
 def open_mal(uid):
